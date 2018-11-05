@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -42,3 +43,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+=======
+# AwesomeLedger
+Ledger Code Sample. Sample Front End: [Sample Front End](https://codesandbox.io/s/3qn6y5pk55 "Awesome Ledger")
+>>>>>>> 030b5a16391f5a1cdab789c9502bf47c4dba46d7
