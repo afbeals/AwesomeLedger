@@ -1,4 +1,5 @@
 import ledgerUtil from "../modules/ledger/ledgerUtility";
+import ledgerData from "./data/ledger";
 
 export const fetchLedger = ({
   request = {},
@@ -10,8 +11,15 @@ export const fetchLedger = ({
       if (shouldFail) {
         return rej();
       } else {
+        let newLedgerList = [];
+        console.log('what?',request.client.id);
+        [...ledgerData.mock].forEach((item)=>{
+          if(item.userId === request.client.id) {
+            newLedgerList.push(item);
+          }
+        });
         return res({
-          data: ledgerUtil.buildMockLedgerList(mockProps),
+          data: ledgerUtil.buildMockLedgerList(newLedgerList),
           mockRequest: request
         });
       }

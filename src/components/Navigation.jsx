@@ -8,9 +8,11 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Icon from "@material-ui/core/Icon";
 
+import {actions as userActions} from "../modules/user/";
+
 class Navigation extends React.Component {
   render() {
-    const { handleNavigation } = this.props;
+    const { handleNavigation, handleLogoutUser } = this.props;
     return (
       <AppBar>
         <Toolbar>
@@ -23,28 +25,20 @@ class Navigation extends React.Component {
             />
           </ToolTip>
           <Typography
-            variant="h6"
+            variant="h5"
             color="inherit"
             aria-label="Your Awesome Ledger"
             alt="Ledger"
           >
             Your Awesome Ledger
           </Typography>
-          <div>
-            <ToolTip displayWhen={true} tip={`Home`}>
+          <div className={`userActions`}>
+            <ToolTip displayWhen={true} tip={`Logout`}>
               <Icon
-                className={"fas fa-home"}
-                aria-label="go home"
-                alt="home"
-                onClick={() => handleNavigation("/")}
-              />
-            </ToolTip>
-            <ToolTip displayWhen={true} tip={`Home`}>
-              <Icon
-                className={"fas fa-home"}
-                aria-label="go home"
-                alt="home"
-                onClick={() => handleNavigation("/")}
+                className={"fas fa-sign-out-alt"}
+                aria-label="Logout"
+                alt="logout"
+                onClick={() => handleLogoutUser()}
               />
             </ToolTip>
           </div>
@@ -59,11 +53,15 @@ const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
   handleNavigation: route => {
     dispatch(push(route));
+  },
+  handleLogoutUser: () => {
+    dispatch(userActions.logoutUserRequest());
   }
 });
 
 Navigation.propTypes = {
-  handleNavigation: PropTypes.func.isRequired
+  handleNavigation: PropTypes.func.isRequired,
+  handleLogoutUser: PropTypes.func.isRequired
 };
 
 export default connect(

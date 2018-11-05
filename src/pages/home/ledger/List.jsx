@@ -6,8 +6,10 @@ import { Column, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 //Local
 import ListRow from "./list/ListRow";
-import * as selectors from "../../../modules/ledger/selectors";
+import {selectors} from "../../../modules/ledger/";
+import { selectors as userSelectors} from "../../../modules/user/";
 import { actions } from "../../../modules/ledger/";
+import normalize from "../../../util/";
 
 class List extends React.Component {
   constructor(props, context) {
@@ -17,7 +19,7 @@ class List extends React.Component {
   }
 
   componentDidMount() {
-    this.props.handleLedgerFetch("00");
+    this.props.handleLedgerFetch(this.props.getUser.id);
   }
 
   getData() {
@@ -43,17 +45,17 @@ class List extends React.Component {
 
   calculateTotals(rowIndex) {
     const data = this.getData();
-    let total = null;
+    let total = 0;
     for (let x = 0; x < rowIndex + 1; x++) {
       let item = data[x];
-      if (item.debit) {
-        total = total - Number(item.debit);
-      } else if (item.credit) {
-        total = total + Number(item.credit);
+      if (item.type) {
+        total = total - Number(item.amount);
+      } else {
+        total = total + Number(item.amount);
       }
     }
 
-    return `${total}`;
+    return `${total < 0 ? `-$${total.toString().replace("-","")}`:`$${total}`}`;
   }
 
   renderLedgerList() {
@@ -78,7 +80,7 @@ class List extends React.Component {
               <Column
                 label="Date"
                 dataKey="date"
-                width={width / 3}
+                width={width / 5}
                 cellRenderer={({ cellData }) => {
                   return `${new Date(cellData)
                     .toUTCString()
@@ -91,19 +93,23 @@ class List extends React.Component {
                 }}
               />
               <Column
-                width={width / 6}
+                width={width / 5}
                 label="Description"
                 dataKey="description"
               />
-              <Column width={width / 8} label="Debit" dataKey="debit" />
-              <Column width={width / 8} label="Credit" dataKey="credit" />
+              <Column width={width / 5} label="Debit" dataKey="amount" cellRenderer={({ cellData,rowData }) => {
+                  return `${rowData.type ? `-$${normalize.addComma(cellData)}`: ``}`;
+                }}/>
+              <Column width={width / 5} label="Credit" dataKey="amount" cellRenderer={({ cellData,rowData }) => {
+                  return `${!rowData.type ? `$${normalize.addComma(cellData)}`: ``}`;
+                }}/>
               <Column
-                width={width / 8}
+                width={width / 5}
                 disableSort
                 label="Total"
                 dataKey="random"
                 cellRenderer={({ rowIndex }) => {
-                  return this.calculateTotals(rowIndex);
+                  return normalize.addComma(this.calculateTotals(rowIndex));
                 }}
                 flexGrow={1}
               />
@@ -130,7 +136,8 @@ const mapStateToProps = state => ({
   getIsLedgerLoading: selectors.getIsLedgerLoading(state),
   getIsLedgerLoaded: selectors.getIsLedgerLoaded(state),
   getLedgerList: selectors.getLedgerList(state),
-  getLedgerArray: selectors.getLedgerListToArray(state)
+  getLedgerArray: selectors.getLedgerListToArray(state),
+  getUser: userSelectors.getUser(state)
 });
 
 const mapDispatchToProps = dispatch => ({

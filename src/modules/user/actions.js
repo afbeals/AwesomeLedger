@@ -19,7 +19,7 @@ const actions = {
     type: actionTypes.LOGIN_SUCCESS,
     payload: user
   }),
-  logoutUserList: () => ({
+  logoutUserRequest: () => ({
     type: actionTypes.LOGOUT_REQUEST
   }),
   logoutUserFail: msg => ({
@@ -29,9 +29,24 @@ const actions = {
       devMessage: msg
     }
   }),
-  logoutUserSuccess: userList => ({
+  logoutUserSuccess: user => ({
     type: actionTypes.LOGOUT_SUCCESS,
-    payload: userList
+    payload: user
+  }),
+  registerUserRequest: user => ({
+    type: actionTypes.REGISTER_REQUEST,
+    payload: user
+  }),
+  registerUserFail: msg => ({
+    type: actionTypes.REGISTER_FAIL,
+    payload: {
+      clientMessage: "Failed to regisetr users",
+      devMessage: msg
+    }
+  }),
+  registerUserSuccess: user => ({
+    type: actionTypes.REGISTER_SUCCESS,
+    payload: user
   }),
   clearUser: () => ({
     type: actionTypes.CLEAR

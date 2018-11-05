@@ -14,7 +14,21 @@ class ActionMenuList extends React.Component {
             console.log("aefa");
           }}
         >
-          Add Item
+          Deposit
+        </li>
+        <li
+          onClick={() => {
+            console.log("aefa");
+          }}
+        >
+          Withdraw
+        </li>
+        <li
+          onClick={() => {
+            console.log("aefa");
+          }}
+        >
+          Check Balance
         </li>
       </ul>
     );

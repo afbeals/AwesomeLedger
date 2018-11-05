@@ -1,26 +1,29 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest, select } from "redux-saga/effects";
 import actionTypes from "./actionTypes";
 import actions from "./actions";
 import api from "../../util/api";
 import normalize from "../../util/normalize";
+import { selectors as userSelectors} from "../user/";
 // WATCHERS
 export function* watchRequestToFetchLedger() {
   yield takeLatest(actionTypes.FETCH_REQUEST, fetch);
 }
 
 // PROMISES
-export function* fetch({ payload: { userId } }) {
+export function* fetch() {
   try {
+    var test = yield select(userSelectors).getUser;
+    console.log('asdfa',test);
     const request = {
         client: {
-          id: userId
+          id: yield select(userSelectors).getUser.userId
         }
       },
       response = yield call(api.fetchLedger, { request });
-    const users = normalize.arrayToIndexed(response.data);
+    const ledgers = normalize.arrayToIndexed(response.data);
 
     yield put(actions.resetLegerStore());
-    yield put(actions.fetchLedgerSuccess(users));
+    yield put(actions.fetchLedgerSuccess(ledgers));
   } catch (e) {
     yield put(actions.fetchLedgerFail(e));
   }

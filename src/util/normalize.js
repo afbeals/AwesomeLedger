@@ -1,5 +1,16 @@
 const normalize = {
   /**
+     * add comma after every three digits
+     * @param {Number} num number to be converted
+     * @return string
+     */
+    addComma : (num) => {
+      if(!num) return '';
+      const p = num.toString().split(".");
+      p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return p.join(".");
+  },
+  /**
    * indexes array list by indexer (default = 'id')
    * @method arrayToIndexed
    * @param {array} array array to be indexed

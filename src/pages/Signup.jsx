@@ -10,28 +10,34 @@ import * as selectors from "../modules/user/selectors";
 import { actions } from "../modules/user/";
 import StyledButton from "../components/StyledButton";
 
-class Login extends React.Component {
+class Signup extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
       changed: {
         username: false,
-        password: false
+        password: false,
+        first_name: false,
+        last_name: false,
+        email: false
       },
       values: {
         username: ``,
-        password: ``
+        password: ``,
+        first_name: ``,
+        last_name: ``,
+        email: ``
       }
     };
 
-    this.loginUser = this.loginUser.bind(this);
+    this.registerUser = this.registerUser.bind(this);
     this.updateValue = this.updateValue.bind(this);
     this.hasValidChanges = this.hasValidChanges.bind(this);
   }
 
   getClassName() {
-    return "loginPage";
+    return "registerPage";
   }
 
   hasValidChanges(field) {
@@ -40,6 +46,15 @@ class Login extends React.Component {
     }
     if (field === "password" && this.state.values[field].length > 2) {
       return true;
+    }
+    if (field === "first_name" && this.state.values[field].length > 2) {
+        return true;
+    }
+    if (field === "last_name" && this.state.values[field].length > 2) {
+    return true;
+    }
+    if (field === "email" && this.state.values[field].length > 2) {
+    return true;
     }
     return false;
   }
@@ -57,7 +72,7 @@ class Login extends React.Component {
     );
   }
 
-  loginUser() {
+  registerUser() {
     const { values, changed } = this.state,
       loginData = {};
     [...Object.keys(changed)].forEach(field => {
@@ -65,8 +80,8 @@ class Login extends React.Component {
         loginData[field] = values[field];
       }
     });
-    if (loginData.username && loginData.password) {
-      this.props.handleLoginUser(loginData);
+    if (loginData.username && loginData.password && loginData.first_name && loginData.last_name && loginData.email) {
+      this.props.handleRegisterUser(loginData);
     }
   }
 
@@ -79,21 +94,21 @@ class Login extends React.Component {
               variant={`h6`}
               className={`${this.getClassName()}__card__title`}
             >
-              Welcome To Your Awesome Ledger
+              Welcome To Your Awesadfafome Ledger
             </Typography>
             <div className={`${this.getClassName()}__card__form `}>
               <form noValidate autoComplete="off">
                 <TextField
                   required
-                  id="outlined-name"
-                  label="username"
+                  id="outlined-suername"
+                  label="Username"
                   defaultValue=""
                   margin="normal"
                   variant="outlined"
                   error={this.props.getUserError ? true : false}
                   helperText={
                     this.props.getUserError
-                      ? "Incorrect Username/Password Combo"
+                      ? "Error registering username"
                       : ""
                   }
                   onChange={e => this.updateValue("username", e.target.value)}
@@ -109,19 +124,72 @@ class Login extends React.Component {
                   error={this.props.getUserError ? true : false}
                   helperText={
                     this.props.getUserError
-                      ? "Incorrect Password/Username Combo"
+                      ? "Error registering with password"
                       : ""
                   }
                   onChange={e => this.updateValue("password", e.target.value)}
                 />
+
+
+                  <TextField
+                  required
+                  id="outlined-firstname"
+                  label="First Name"
+                  defaultValue=""
+                  margin="normal"
+                  variant="outlined"
+                  error={this.props.getUserError ? true : false}
+                  helperText={
+                    this.props.getUserError
+                      ? "Error registering first name"
+                      : ""
+                  }
+                  onChange={e => this.updateValue("first_name", e.target.value)}
+                />
+                <TextField
+                  required
+                  id="outlined-lastname"
+                  label="Last name"
+                  defaultValue=""
+                  margin="normal"
+                  variant="outlined"
+                  error={this.props.getUserError ? true : false}
+                  helperText={
+                    this.props.getUserError
+                      ? "Error registering last name"
+                      : ""
+                  }
+                  onChange={e => this.updateValue("last_name", e.target.value)}
+                />
+                <TextField
+                  required
+                  id="outlined-email"
+                  label="email"
+                  defaultValue=""
+                  type="email"
+                  margin="normal"
+                  variant="outlined"
+                  error={this.props.getUserError ? true : false}
+                  helperText={
+                    this.props.getUserError
+                      ? "Error registering with email"
+                      : ""
+                  }
+                  onChange={e => this.updateValue("email", e.target.value)}
+                />
+
+
                 <StyledButton
                   onClick={e => {
                     e.preventDefault();
-                    this.loginUser();
+                    this.registerUser();
                   }}
                   disabled={
                     !this.hasValidChanges("username") ||
-                    !this.hasValidChanges("password")
+                    !this.hasValidChanges("password") ||
+                    !this.hasValidChanges("first_name") ||
+                    !this.hasValidChanges("last_name") ||
+                    !this.hasValidChanges("email")
                       ? true
                       : false
                   }
@@ -150,20 +218,20 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleLoginUser: ({ username, password }) => {
-    dispatch(actions.loginUser({ username, password }));
+  handleRegisterUser: (data) => {
+    dispatch(actions.registerUserRequest(data));
   }
 });
 
-Login.propTypes = {
+Signup.propTypes = {
   getUser: PropTypes.object,
   getIsUserLoaded: PropTypes.bool.isRequired,
   getIsUserLoading: PropTypes.bool.isRequired,
   getUserError: PropTypes.string,
-  handleLoginUser: PropTypes.func.isRequired
+  handleRegisterUser: PropTypes.func.isRequired
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(Signup);

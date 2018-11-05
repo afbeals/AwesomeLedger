@@ -4,6 +4,7 @@ import userUtility from "../../util/modules/user/userUtility";
 const initialState = userUtility.buildInitialStore();
 
 export default function reducer(state = initialState, { type, payload }) {
+  console.log(payload);
   switch (type) {
     case actionTypes.LOGIN_REQUEST: {
       return {
@@ -53,6 +54,34 @@ export default function reducer(state = initialState, { type, payload }) {
     }
 
     case actionTypes.LOGOUT_FAIL: {
+      return {
+        ...state,
+        error: payload.clientMessage,
+        isLoading: false,
+        isLoaded: false
+      };
+    }
+
+    case actionTypes.REGISTER_REQUEST: {
+      return {
+        ...state,
+        error: null,
+        isLoading: true,
+        isLoaded: false
+      };
+    }
+
+    case actionTypes.REGISTER_SUCCESS: {
+      return {
+        ...state,
+        error: null,
+        isLoading: false,
+        isLoaded: false,
+        user: payload
+      };
+    }
+
+    case actionTypes.REGISTER_FAIL: {
       return {
         ...state,
         error: payload.clientMessage,

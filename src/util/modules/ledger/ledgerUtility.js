@@ -34,7 +34,7 @@ const ledgerUtility = {
    * @return {obj} returns mock list
    */
   buildMockLedgerList: (props = []) => {
-    const mockLedger = [...ledgerData.mock, ...props];
+    const mockLedger = props.length ? props : [...ledgerData.mock];
     return mockLedger;
   },
   /**

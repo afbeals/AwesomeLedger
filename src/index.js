@@ -3,8 +3,8 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import AppContainer from "./AppContainer";
 import * as serviceWorker from './serviceWorker';
-
 import { store } from "./config";
+import "./styles/main.scss";
 render(
   <Provider store={store}>
     <AppContainer />

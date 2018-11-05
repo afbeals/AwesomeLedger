@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import * as UserSelectors from "../modules/user/selectors";
 
 const Auth = ({ component: Component, getUser, ...rest }) => {
-  if (true || getUser) {
+  if (getUser) {
     return <Route {...rest} component={Component} />;
   }
   return <Redirect to="/" />;
