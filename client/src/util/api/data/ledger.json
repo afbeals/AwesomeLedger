@@ -1,0 +1,29 @@
+{
+  "mock": [
+    {
+    "id": "00",
+    "userId": "a1",
+    "date": "Mon Sep 08 1998 14:36:22 GMT-0700 (PDT)",
+    "description": "item 1",
+    "debit": "25000",
+    "credit": null
+    },
+    {
+      "id": "01",
+      "userId": "a1",
+      "date": "Tue Sep 09 1998 16:36:22 GMT-0700 (PDT)",
+      "description": "item 2",
+      "debit": "15000",
+      "credit": null
+    },
+    {
+      "id": "02",
+      "userId": "a1",
+      "date": "Wed Sep 10 1998 11:36:22 GMT-0700 (PDT)",
+      "description": "item 3",
+      "debit": null,
+      "credit": "9000"
+    }
+  ]
+}
+
