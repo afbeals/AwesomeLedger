@@ -2,7 +2,7 @@ import React from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Route, Redirect, Switch } from "react-router";
 import Auth from "./components/Auth";
-import { Login, Home, Profile } from "./pages";
+import { Login, Home } from "./pages";
 import PageLoader from "./components/PageLoader.jsx";
 import { history } from "./config";
 

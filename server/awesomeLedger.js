@@ -1,10 +1,13 @@
 #! /usr/local/bin/node
 const   fs = require('fs'),
+        path = require('path');
         commandLineArgs  = require('command-line-args'),
         readline = require('readline'),
         LedgerItem = require('./service/ledgerItem'),
         LedgerList = require('./service/ledgerList'),
         User = require('./service/user'),
+        ledgersJson = path.join(__dirname+'/../src/util/api/data/ledger.json'),
+        userJson = path.join(__dirname+'/../src/util/api/data/users.json'),
         stdin = process.stdin,
         stdout = process.stdout,
         optionDefinitions = [
@@ -31,7 +34,7 @@ const promptUser = (question,cb) => {
     })
 };
 const getUser = (user) => {
-    const userList = JSON.parse(fs.readFileSync('users.json', 'utf8')),
+    const userList = JSON.parse(fs.readFileSync(userJson, 'utf8')),
           reqUser = user.username,
           reqPass = user.password;
     [...Object.keys(userList.users)].forEach(userId => {
@@ -128,7 +131,7 @@ const addDebit = (amount)=> {
                     newAllLedger = JSON.stringify({
                         mock: allLedgerList
                     });
-                    fs.writeFile('ledger.json',newAllLedger, (err)=>{
+                    fs.writeFile(ledgersJson,newAllLedger, (err)=>{
                         if (err) throw err;
                         write('successful withraw! \r\n');
                         beginbanking();
@@ -168,7 +171,7 @@ const addCredit = (amount)=> {
                     newAllLedger = JSON.stringify({
                         mock: allLedgerList
                     });
-                    fs.writeFile('ledger.json',newAllLedger, (err)=>{
+                    fs.writeFile(ledgersJson,newAllLedger, (err)=>{
                         if (err) throw err;
                         write('successful deposit! \r\n');
                         beginbanking();
@@ -211,7 +214,7 @@ const logOut = () => {
 }
 
 const createUser = () => {
-    const   userList = JSON.parse(fs.readFileSync('users.json','utf8')),
+    const   userList = JSON.parse(fs.readFileSync(userJson,'utf8')),
             userNameFound = false;
     let lastId = 0;
     [...Object.keys(userList.users)].forEach((item)=>{
@@ -245,7 +248,7 @@ const createUser = () => {
                                                 "id": userId
                                             }
                                         });
-                                fs.writeFile('users.json',JSON.stringify({users:newUserList}), (err)=>{
+                                fs.writeFile(userJson,JSON.stringify({users:newUserList}), (err)=>{
                                     if (err) throw err;
                                     write('successfully Added! \r\n');
                                     currentUser = new User(userId,usernameReq,firstName,lastname,email);
@@ -273,7 +276,7 @@ const createUser = () => {
                                         "id": userId
                                     }
                                 });
-                        fs.writeFile('users.json',JSON.stringify({users:newUserList}), (err)=>{
+                        fs.writeFile(userJson,JSON.stringify({users:newUserList}), (err)=>{
                             if (err) throw err;
                             write('successfully Added! \r\n');
                             currentUser = new User(userId,usernameReq,firstName,lastname,email);

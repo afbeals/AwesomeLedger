@@ -1,5 +1,3 @@
-import userData from "../../api/data/users";
-
 const userUtility = {
   /**
    * Returns initial user

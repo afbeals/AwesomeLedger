@@ -8,10 +8,6 @@ import LedgerHeader from "./ledger/LedgerHeader";
 import List from "./ledger/List";
 
 class Ledger extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
   render() {
     const { classname } = this.props;
     return (

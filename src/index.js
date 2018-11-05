@@ -5,7 +5,6 @@ import AppContainer from "./AppContainer";
 import * as serviceWorker from './serviceWorker';
 
 import { store } from "./config";
-
 render(
   <Provider store={store}>
     <AppContainer />

@@ -6,10 +6,6 @@ import { connect } from "react-redux";
 import * as selectors from "../../../modules/ledger/selectors";
 
 class ActionMenuList extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
   render() {
     return (
       <ul>

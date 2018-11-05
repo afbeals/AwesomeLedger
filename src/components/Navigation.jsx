@@ -3,11 +3,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import ToolTip from "./ToolTip.jsx";
-import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import SvgIcon from "@material-ui/core/SvgIcon";
 import Icon from "@material-ui/core/Icon";
 
 class Navigation extends React.Component {
@@ -64,7 +62,9 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-Navigation.propTypes = {};
+Navigation.propTypes = {
+  handleNavigation: PropTypes.func.isRequired
+};
 
 export default connect(
   mapStateToProps,

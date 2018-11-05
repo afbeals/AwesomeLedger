@@ -1,6 +1,9 @@
 const   normalize = require('./../util/normalize'),
+        path = require('path');
         fs = require('fs'),
-        LedgerItem = require('./ledgerItem');
+        LedgerItem = require('./ledgerItem'),
+        ledgersJson = path.join(__dirname+'/../../src/util/api/data/ledger.json');
+        
 /**
  * Service for creating LedgerList
  * @prop {array} ledgerList array of LedgerItems
@@ -37,7 +40,7 @@ module.exports = class LedgerList {
     
     //Setter
     set setUserLedgerList(userId) {
-        let ledgerList = JSON.parse(fs.readFileSync('ledger.json','utf8')).mock;
+        let ledgerList = JSON.parse(fs.readFileSync(ledgersJson,'utf8')).mock;
         this._userLedgerList = [];
         [...ledgerList].forEach((ledgerItem)=>{
             if(ledgerItem.userId === userId){this._userLedgerList.push(new LedgerItem(ledgerItem.userId,ledgerItem.description,ledgerItem.type,ledgerItem.amount,ledgerItem.id))} 
@@ -45,7 +48,7 @@ module.exports = class LedgerList {
     }
 
     set setAllLedgerList(shouldFormat){
-        let ledgerList = JSON.parse(fs.readFileSync('ledger.json','utf8')).mock;
+        let ledgerList = JSON.parse(fs.readFileSync(ledgersJson,'utf8')).mock;
             this._allLedgerList = [];
         [...ledgerList].forEach((ledgerItem)=>{
             if(shouldFormat){
@@ -58,7 +61,7 @@ module.exports = class LedgerList {
 
     //method
     handleGetNextLedgerId(){
-        const   ledgerList = JSON.parse(fs.readFileSync('ledger.json','utf8')).mock,
+        const   ledgerList = JSON.parse(fs.readFileSync(ledgersJson,'utf8')).mock,
                 ledgerListLength = ledgerList.length,
                 lastItemId = ledgerList[ledgerListLength-1].id;
         return Number(lastItemId)+1;    

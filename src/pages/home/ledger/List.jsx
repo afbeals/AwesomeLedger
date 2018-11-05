@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { List as ReactVirList, AutoSizer } from "react-virtualized";
+import { AutoSizer } from "react-virtualized";
 import { Column, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 //Local
