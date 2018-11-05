@@ -38,7 +38,8 @@ export default function reducer(state = initialState, { type, payload }) {
         ...state,
         error: null,
         isUpdating: true,
-        isUpdated: false
+        isUpdated: false,
+        ledgerList: {...state.ledgerList,[payload.id]:payload}
       };
     }
 

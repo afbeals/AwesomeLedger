@@ -45,9 +45,10 @@ class UserList extends React.Component {
 
   resetList() {
     this.setState(
-      Object.assign({}, this.state, {
+      {
+        ...this.state, 
         filteredList: null
-      })
+      }
     );
   }
 

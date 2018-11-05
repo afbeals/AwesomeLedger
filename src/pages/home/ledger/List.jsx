@@ -5,19 +5,12 @@ import { AutoSizer } from "react-virtualized";
 import { Column, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 //Local
-import ListRow from "./list/ListRow";
 import {selectors} from "../../../modules/ledger/";
 import { selectors as userSelectors} from "../../../modules/user/";
 import { actions } from "../../../modules/ledger/";
 import normalize from "../../../util/";
 
 class List extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.rowRenderer = this.rowRenderer.bind(this);
-  }
-
   componentDidMount() {
     this.props.handleLedgerFetch(this.props.getUser.id);
   }
@@ -28,19 +21,6 @@ class List extends React.Component {
     } else {
       return [];
     }
-  }
-
-  rowRenderer({ key, index, isScrolling, style }) {
-    const data = this.getData();
-
-    return (
-      <div className={`${this.getClassName()}__row`} key={key} style={style}>
-        <ListRow
-          listData={data[index]}
-          classname={`${this.getClassName()}__row__item`}
-        />
-      </div>
-    );
   }
 
   calculateTotals(rowIndex) {

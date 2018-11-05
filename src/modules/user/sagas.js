@@ -64,7 +64,6 @@ export function* register({payload}) {
     yield put(actions.registerUserSuccess(response.data))
     yield put(push("/home"));
   } catch (e) {
-    console.log(e);
     yield put(actions.registerUserFail(e));
   }
 }

@@ -12,9 +12,6 @@ class Ledger extends React.Component {
     const { classname } = this.props;
     return (
       <div className={`${classname}`}>
-        <button onClick={() => console.log(this.props.getstate)}>
-          show state
-        </button>
         <LedgerHeader classname={`${classname}__header`} />
         <List classname={`${classname}__list`} />
       </div>
@@ -23,7 +20,6 @@ class Ledger extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  getstate: state
 });
 
 const mapDispatchToProps = dispatch => ({});

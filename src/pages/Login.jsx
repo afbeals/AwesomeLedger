@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import { push } from "connected-react-router";
 //Local
 import * as selectors from "../modules/user/selectors";
 import { actions } from "../modules/user/";
@@ -114,24 +115,35 @@ class Login extends React.Component {
                   }
                   onChange={e => this.updateValue("password", e.target.value)}
                 />
+                <div className={`buttonWrapper`}>
                 <StyledButton
-                  onClick={e => {
-                    e.preventDefault();
-                    this.loginUser();
-                  }}
-                  disabled={
-                    !this.hasValidChanges("username") ||
-                    !this.hasValidChanges("password")
-                      ? true
-                      : false
-                  }
-                >
-                  {this.props.getIsUserLoading ? (
-                    <i className="fas fa-spinner fa-pulse" />
-                  ) : (
-                    "Login"
-                  )}
-                </StyledButton>
+                    onClick={e => {
+                      e.preventDefault();
+                      this.props.handleGoToRegister();
+                    }}
+                  >
+                    Register
+                  </StyledButton>
+                  <StyledButton
+                    onClick={e => {
+                      e.preventDefault();
+                      this.loginUser();
+                    }}
+                    disabled={
+                      !this.hasValidChanges("username") ||
+                      !this.hasValidChanges("password")
+                        ? true
+                        : false
+                    }
+                  >
+                    {this.props.getIsUserLoading ? (
+                      <i className="fas fa-spinner fa-pulse" />
+                    ) : (
+                      "Login"
+                    )}
+                  </StyledButton>
+                  
+                </div>
               </form>
             </div>
           </CardContent>
@@ -152,6 +164,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleLoginUser: ({ username, password }) => {
     dispatch(actions.loginUser({ username, password }));
+  },
+  handleGoToRegister: () => {
+    dispatch(push('/signup'));
   }
 });
 
@@ -160,7 +175,8 @@ Login.propTypes = {
   getIsUserLoaded: PropTypes.bool.isRequired,
   getIsUserLoading: PropTypes.bool.isRequired,
   getUserError: PropTypes.string,
-  handleLoginUser: PropTypes.func.isRequired
+  handleLoginUser: PropTypes.func.isRequired,
+  handleGoToRegister: PropTypes.func.isRequired
 };
 
 export default connect(

@@ -21,7 +21,7 @@ class Navigation extends React.Component {
               className={"fas fa-home"}
               aria-label="go home"
               alt="home"
-              onClick={() => handleNavigation("/")}
+              onClick={() => handleNavigation("/home")}
             />
           </ToolTip>
           <Typography

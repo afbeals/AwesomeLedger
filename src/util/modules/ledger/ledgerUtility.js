@@ -33,8 +33,8 @@ const ledgerUtility = {
    * @param {object} props addtional props insert alongside mock data.
    * @return {obj} returns mock list
    */
-  buildMockLedgerList: (props = []) => {
-    const mockLedger = props.length ? props : [...ledgerData.mock];
+  buildMockLedgerList: (props) => {
+    const mockLedger = props ? props : [...ledgerData.mock];
     return mockLedger;
   },
   /**

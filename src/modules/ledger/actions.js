@@ -20,12 +20,9 @@ const actions = {
       ledgerList
     }
   }),
-  addLedgerItem: (userId, item) => ({
+  addLedgerItem: item => ({
     type: actionTypes.ADD_REQUEST,
-    payload: {
-      userId,
-      item
-    }
+    payload: item
   }),
   addLedgerItemFail: devMessage => ({
     type: actionTypes.ADD_FAIL,

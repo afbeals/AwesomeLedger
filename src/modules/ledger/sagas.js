@@ -12,14 +12,12 @@ export function* watchRequestToFetchLedger() {
 // PROMISES
 export function* fetch() {
   try {
-    var test = yield select(userSelectors).getUser;
-    console.log('asdfa',test);
     const request = {
         client: {
-          id: yield select(userSelectors).getUser.userId
+          id: yield select(userSelectors.getUserId)
         }
-      },
-      response = yield call(api.fetchLedger, { request });
+      };
+    const  response = yield call(api.fetchLedger, { request });
     const ledgers = normalize.arrayToIndexed(response.data);
 
     yield put(actions.resetLegerStore());

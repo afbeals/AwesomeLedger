@@ -6,22 +6,26 @@
   justify-content: center;
   align-items: center;
   &__card {
-    max-height: 300px;
+    max-height: 335px;
     &__form {
       form {
         display: flex;
         flex-wrap: wrap;
-        > div {
+        >div {
           width: 100%;
         }
-        > button {
-          margin-left: auto;
-          &:disabled {
-            border: none;
-            cursor: auto;
-            &:hover {
-              background-color: initial;
-              color: graytext;
+        .buttonWrapper{
+          display:flex;
+          justify-content: space-between;
+          button {
+            margin: 0rem .25rem;
+            &:disabled {
+              border: none;
+              cursor: auto;
+              &:hover {
+                background-color: initial;
+                color: graytext;
+              }
             }
           }
         }

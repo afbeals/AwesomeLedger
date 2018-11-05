@@ -26,3 +26,8 @@ export const getUser = createSelector(
   [getRootStore],
   rootStore => rootStore.user
 );
+
+export const getUserId = createSelector(
+  [getUser],
+  user => user.id
+)

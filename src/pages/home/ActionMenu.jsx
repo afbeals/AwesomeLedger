@@ -7,25 +7,18 @@ import ActionMenuHeader from "./actionMenu/ActionMenuHeader";
 import ActionMenuList from "./actionMenu/ActionMenuList";
 
 class ActionMenu extends React.Component {
-  getClassName() {
-    return `actionMenu`;
-  }
 
   render() {
     return (
-      <div>
-        <button onClick={() => console.log(this.props.getstate)}>
-          check state
-        </button>
-        <ActionMenuHeader classname={`${this.getClassName()}__header`} />
-        <ActionMenuList classname={`${this.getClassName()}__list`} />
+      <div className={`${this.props.classname}`}>
+        <ActionMenuHeader classname={`${this.props.classname}__header`} />
+        <ActionMenuList classname={`${this.props.classname}__list`} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  getstate: state
 });
 
 const mapDispatchToProps = dispatch => ({});

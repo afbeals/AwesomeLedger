@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import { push } from "connected-react-router";
 //Local
 import * as selectors from "../modules/user/selectors";
 import { actions } from "../modules/user/";
@@ -37,7 +38,7 @@ class Signup extends React.Component {
   }
 
   getClassName() {
-    return "registerPage";
+    return "signupPage";
   }
 
   hasValidChanges(field) {
@@ -48,27 +49,30 @@ class Signup extends React.Component {
       return true;
     }
     if (field === "first_name" && this.state.values[field].length > 2) {
-        return true;
+      return true;
     }
     if (field === "last_name" && this.state.values[field].length > 2) {
-    return true;
+      return true;
     }
     if (field === "email" && this.state.values[field].length > 2) {
-    return true;
+      return true;
     }
     return false;
   }
 
   updateValue(field, val) {
     this.setState(
-      Object.assign({}, this.state, {
-        values: Object.assign({}, this.state.values, {
+      {
+        ...this.state, 
+        values: {
+          ...this.state.values, 
           [field]: val
-        }),
-        changed: Object.assign({}, this.state.changed, {
+        },
+        changed:{
+          ...this.state.changed, 
           [field]: true
-        })
-      })
+        }
+      }
     );
   }
 
@@ -94,7 +98,7 @@ class Signup extends React.Component {
               variant={`h6`}
               className={`${this.getClassName()}__card__title`}
             >
-              Welcome To Your Awesadfafome Ledger
+              Welcome To Your Awesome Ledger
             </Typography>
             <div className={`${this.getClassName()}__card__form `}>
               <form noValidate autoComplete="off">
@@ -131,7 +135,7 @@ class Signup extends React.Component {
                 />
 
 
-                  <TextField
+                <TextField
                   required
                   id="outlined-firstname"
                   label="First Name"
@@ -178,28 +182,39 @@ class Signup extends React.Component {
                   onChange={e => this.updateValue("email", e.target.value)}
                 />
 
+                <div className={`buttonWrapper`}>
+                  <StyledButton
+                    onClick={e => {
+                      e.preventDefault();
+                      this.props.handleGoToLogin();
+                    }}
+                  >
+                    Login
+                  </StyledButton>
+                  <StyledButton
+                    onClick={e => {
+                      e.preventDefault();
+                      this.registerUser();
+                    }}
+                    disabled={
+                      !this.hasValidChanges("username") ||
+                        !this.hasValidChanges("password") ||
+                        !this.hasValidChanges("first_name") ||
+                        !this.hasValidChanges("last_name") ||
+                        !this.hasValidChanges("email")
+                        ? true
+                        : false
+                    }
+                  >
+                    {this.props.getIsUserLoading ? (
+                      <i className="fas fa-spinner fa-pulse" />
+                    ) : (
+                        "Register"
+                      )}
+                  </StyledButton>
 
-                <StyledButton
-                  onClick={e => {
-                    e.preventDefault();
-                    this.registerUser();
-                  }}
-                  disabled={
-                    !this.hasValidChanges("username") ||
-                    !this.hasValidChanges("password") ||
-                    !this.hasValidChanges("first_name") ||
-                    !this.hasValidChanges("last_name") ||
-                    !this.hasValidChanges("email")
-                      ? true
-                      : false
-                  }
-                >
-                  {this.props.getIsUserLoading ? (
-                    <i className="fas fa-spinner fa-pulse" />
-                  ) : (
-                    "Login"
-                  )}
-                </StyledButton>
+                </div>
+
               </form>
             </div>
           </CardContent>
@@ -220,6 +235,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleRegisterUser: (data) => {
     dispatch(actions.registerUserRequest(data));
+  },
+  handleGoToLogin: () => {
+    dispatch(push('/'));
   }
 });
 

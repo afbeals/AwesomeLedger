@@ -17,7 +17,7 @@ export default class StyledHeader extends React.Component {
   render() {
     const { title, children, classname } = this.props;
     return (
-      <Header classname={`${classname ? classname : ""}`}>
+      <Header className={`${classname ? classname : ""}`}>
         {title}
         {children}
       </Header>

@@ -10,4 +10,5 @@ const PageLoader = ({ Component }) => (
   </div>
 );
 
+
 export default PageLoader;

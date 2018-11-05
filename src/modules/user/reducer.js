@@ -4,7 +4,6 @@ import userUtility from "../../util/modules/user/userUtility";
 const initialState = userUtility.buildInitialStore();
 
 export default function reducer(state = initialState, { type, payload }) {
-  console.log(payload);
   switch (type) {
     case actionTypes.LOGIN_REQUEST: {
       return {

@@ -5,9 +5,10 @@ import AppContainer from "./AppContainer";
 import * as serviceWorker from './serviceWorker';
 import { store } from "./config";
 import "./styles/main.scss";
+
 render(
   <Provider store={store}>
-    <AppContainer />
+      <AppContainer />
   </Provider>,
   document.getElementById("root")
 );

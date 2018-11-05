@@ -12,7 +12,6 @@ export const fetchLedger = ({
         return rej();
       } else {
         let newLedgerList = [];
-        console.log('what?',request.client.id);
         [...ledgerData.mock].forEach((item)=>{
           if(item.userId === request.client.id) {
             newLedgerList.push(item);
