@@ -25,3 +25,5 @@ export function* fetch({ payload: { userId } }) {
     yield put(actions.fetchLedgerFail(e));
   }
 }
+
+export default watchRequestToFetchLedger;

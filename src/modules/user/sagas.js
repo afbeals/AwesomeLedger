@@ -25,3 +25,5 @@ export function* login({ payload: { username, password } }) {
     yield put(actions.loginUserFail(e));
   }
 }
+
+export default watchRequestToLogin;

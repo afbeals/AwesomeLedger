@@ -1,5 +1,5 @@
 import React from "react";
-import { Ledger } from "./home";
+import { Ledger } from "./home/";
 import { ActionMenu } from "./home/";
 
 class Home extends React.Component {

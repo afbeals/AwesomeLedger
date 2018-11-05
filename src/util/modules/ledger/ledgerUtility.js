@@ -1,4 +1,4 @@
-import ledgerData from "../../../../../ledger";
+import ledgerData from "./../../api/data/ledger";
 import normalize from "../../normalize";
 
 const ledgerUtility = {
